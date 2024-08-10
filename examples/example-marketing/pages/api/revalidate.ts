@@ -1,34 +1,34 @@
-import { NextApiRequest, NextApiResponse } from "next"
+import type { NextApiRequest, NextApiResponse } from "next"
 
 export default async function handler(
   request: NextApiRequest,
   response: NextApiResponse
 ) {
-  let slug = request.query.slug as string
+  let path = request.query.path as string
   const secret = request.query.secret as string
 
   // Validate secret.
-  if (secret !== process.env.DRUPAL_PREVIEW_SECRET) {
+  if (secret !== process.env.DRUPAL_REVALIDATE_SECRET) {
     return response.status(401).json({ message: "Invalid secret." })
   }
 
-  // Validate slug.
-  if (!slug) {
-    return response.status(400).json({ message: "Invalid slug." })
+  // Validate path.
+  if (!path) {
+    return response.status(400).json({ message: "Invalid path." })
   }
 
-  // Fix for home slug.
-  if (slug === process.env.DRUPAL_FRONT_PAGE) {
-    slug = "/"
+  // Fix for homepage.
+  if (path === process.env.DRUPAL_FRONT_PAGE) {
+    path = "/"
   }
 
   try {
-    await response.revalidate(slug)
+    await response.revalidate(path)
 
     return response.json({})
   } catch (error) {
     return response.status(404).json({
-      message: error.message,
+      message: (error as Error).message,
     })
   }
 }
