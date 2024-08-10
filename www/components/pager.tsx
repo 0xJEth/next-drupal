@@ -11,7 +11,7 @@ export function Pager({ links }: PagerProps) {
   const { prev, next } = usePager(links)
 
   return (
-    <div className="flex items-center justify-between mt-10 md:mt-14">
+    <div className="flex items-center justify-between">
       {prev ? (
         <Link
           href={prev.href}

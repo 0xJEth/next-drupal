@@ -19,7 +19,7 @@ export default function GuidesPage({ guides }: GuidesPageProps) {
         <h1 className="text-3xl font-bold leading-tight sm:text-4xl md:text-5xl">
           Guides
         </h1>
-        <p className="mt-4 text-gray-700">
+        <p className="mt-2 text-lg font-light text-gray-700 md:text-xl">
           Helpful guides for developing headless sites with Next.js and Drupal.
         </p>
         <hr className="py-6 mt-6" />
